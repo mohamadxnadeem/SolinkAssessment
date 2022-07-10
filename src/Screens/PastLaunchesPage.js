@@ -1,10 +1,16 @@
-import React from 'react'
+import React from 'react';
+import PastLaunches from '../Components/PastLaunches';
 
 function PastLaunchesPage() {
+
+
   return (
-    <div>
-        <h1>PastLaunchesPage</h1>
+    <div className="flex flex-wrap mt-4">
+    <div className="w-full mb-12 px-4">
+      <PastLaunches/>
     </div>
+    
+ </div>
     
   )
 }

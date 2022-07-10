@@ -4,8 +4,3 @@
 
 
 
-@layer base {
-    body {
-        @apply bg-[#114b5f] text-gray-50
-    }
-}

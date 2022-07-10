@@ -12,13 +12,14 @@ import {
 function Header() {
   return (
 
-    <header className='flex flex-col sm:flex-row m-5 justify-between items-center h-auto'>
+    <div className='bg-solink-blue	'>
+      <header className=' flex flex-col sm:flex-row p-5 justify-between items-center h-auto'>
         <div className='flex flex-grow justify-evenly max-w-2xl '>
             <Link to={'/'}>
               <HeaderItem title='HOME' Icon={HomeIcon}/>
             </Link>
-            <Link to={'/past-launches'}>
-              <HeaderItem title='PREVIOUS LAUNCH' Icon={RewindIcon}/>
+            <Link to={'/pastLaunches'}>
+              <HeaderItem title='PREVIOUS LAUNCHES' Icon={RewindIcon}/>
             </Link>
             
         </div>
@@ -28,7 +29,9 @@ function Header() {
           width={100}
           height={100}
           />
-    </header>
+      </header>
+    </div>
+    
   )
 }
 
