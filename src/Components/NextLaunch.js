@@ -1,41 +1,53 @@
 import React, {useState, useEffect} from 'react';
+import {getRemainingTimeUntilMsTimestamp} from './utils/CountdownTimerUtils'
 
 
-const LAUNCHES_QUERY = `
 
-{
-  launchNext {
-    launch_date_local
-    mission_name
-    launch_site {
-      site_name
-    }
-  }
-  
+
+const TimeTillLaunch = {
+  seconds:'00',
+  minutues:'00',
+  hours:'00',
 }
 
+function NextLaunch({countDownTimeinMS}) {
 
-`
 
-function NextLaunch() {
-  const [nextlaunch, setNextlaunch] = useState([])
 
+  // ===================================================================================
+
+
+
+
+  // ===================================================================================
+
+
+  const [timetillnextlaunch, setTimetillnextlaunch] = useState(TimeTillLaunch)
+
+  // this useEffect basically refreshes the time every second:
   useEffect(() => {
-    fetch('https://api.spacex.land/graphql/', {
-        method:"POST",
-        headers:{"Content-Type": "application/json"},
-        body: JSON.stringify({query:LAUNCHES_QUERY})
-      }).then(response => response.json())
-      .then(data => setNextlaunch(data.data.launchNext))
-    
-  }, [])
+    const intervalId = setInterval(() =>{
+      updateRemainingTime(countDownTimeinMS)
+    }, 1000);
+    return () => clearInterval(intervalId)
+  },[countDownTimeinMS])
 
+  function updateRemainingTime(countdown){
+    setTimetillnextlaunch(getRemainingTimeUntilMsTimestamp(countdown))
+  }
+
+ 
+
+ 
   
   return (
     
 
     <div>
       <h1>Next Launch</h1>
+      <p>Hours: {timetillnextlaunch.hours} </p>
+      <p>Minutes: {timetillnextlaunch.minutes}</p>
+      <p>Seconds: {timetillnextlaunch.seconds}</p>
 
       {/* Count down timer in hours */}
 

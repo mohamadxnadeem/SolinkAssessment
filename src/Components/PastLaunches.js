@@ -65,7 +65,7 @@ function PastLaunches() {
    {/* Loop starts here: */}
    {last20Launches.map((item, index) => (
 
-    <tr>
+    <tr key={index}>
       <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.mission_name}</td>
       <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.launch_date_local}</td>
       <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.launch_site.site_name}</td>
