@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, {useState, useEffect} from 'react';
+import { add } from 'date-fns';
 
 
 const LAUNCHES_QUERY = `
@@ -8,7 +9,7 @@ const LAUNCHES_QUERY = `
 
   launchesUpcoming(limit: 10) {
     mission_name
-    launch_date_local
+    launch_date_utc
     launch_site {
       site_name
     }
@@ -33,6 +34,8 @@ function UpcomingLaunches() {
       .then(data => setNext10launches(data.data.launchesUpcoming))
     
   }, [])
+
+  
 
  
 
@@ -73,7 +76,7 @@ function UpcomingLaunches() {
 
             <tr key={index}>
               <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.mission_name}</td>
-              <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.launch_date_local}</td>
+              <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{moment.utc(item.launch_date_utc).local().format("HH:mm:ss a")}</td>
               <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.launch_site.site_name}</td>
             </tr>
 

@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import moment from 'moment-timezone';
+
 
 
 const LAUNCHES_QUERY = `
@@ -6,7 +8,7 @@ const LAUNCHES_QUERY = `
 {
 
   launchesPast(limit: 20) {
-    launch_date_local
+    launch_date_utc
     launch_site {
       site_name
     }
@@ -36,7 +38,7 @@ function PastLaunches() {
     <div>
       <div>
 
-<h1>Next 10 Launches:</h1>
+<h1>Last 20 Launches:</h1>
 <div
   className={
     "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-lightBlue-900 "
@@ -67,7 +69,7 @@ function PastLaunches() {
 
     <tr key={index}>
       <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.mission_name}</td>
-      <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.launch_date_local}</td>
+      <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{moment.utc(item.launch_date_utc).local().format(" MMMM d, YYYY HH:mm:ss a")}</td>
       <td  className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">{item.launch_site.site_name}</td>
     </tr>
 

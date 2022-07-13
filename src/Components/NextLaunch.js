@@ -1,58 +1,46 @@
-import React, {useState, useEffect} from 'react';
-import {getRemainingTimeUntilMsTimestamp} from './utils/CountdownTimerUtils'
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+
+
+
+import { useCountdown } from "./Hooks/useCountdown";
 
 
 
 
-const TimeTillLaunch = {
-  seconds:'00',
-  minutues:'00',
-  hours:'00',
-}
-
-function NextLaunch({countDownTimeinMS}) {
 
 
-
-  // ===================================================================================
-
-
+function NextLaunch({ futureDate }) {
+  const { hours, minutes, seconds, isTimeUp } = useCountdown(futureDate);
 
 
-  // ===================================================================================
-
-
-  const [timetillnextlaunch, setTimetillnextlaunch] = useState(TimeTillLaunch)
-
-  // this useEffect basically refreshes the time every second:
-  useEffect(() => {
-    const intervalId = setInterval(() =>{
-      updateRemainingTime(countDownTimeinMS)
-    }, 1000);
-    return () => clearInterval(intervalId)
-  },[countDownTimeinMS])
-
-  function updateRemainingTime(countdown){
-    setTimetillnextlaunch(getRemainingTimeUntilMsTimestamp(countdown))
-  }
-
- 
-
- 
-  
-  return (
-    
+  const rocketAlreadyLaunched = isTimeUp ? (
 
     <div>
-      <h1>Next Launch</h1>
-      <p>Hours: {timetillnextlaunch.hours} </p>
-      <p>Minutes: {timetillnextlaunch.minutes}</p>
-      <p>Seconds: {timetillnextlaunch.seconds}</p>
+<p className="text-center text-4xl	m-5">Rocket Already launched for the day! Come back tomorrow</p>
+<img src="https://kineticmarketing.s3.amazonaws.com/nasa-dCgbRAQmTQA-unsplash.jpg"/>
 
-      {/* Count down timer in hours */}
+</div>
+   
+  ):(
+   
 
-      {/* Table for next 10 launches */}
-      
+    <>
+    <p className="text-center text-4xl	m-5">Hours till next launch: {hours} : {minutes} : {seconds} 🚀🚀🚀</p>
+
+  </>
+    
+  );
+
+
+  return (
+
+    
+    
+
+    <div className=" border-0 bg-slate-200">
+      {rocketAlreadyLaunched}
+ 
     </div>
   )
 }
